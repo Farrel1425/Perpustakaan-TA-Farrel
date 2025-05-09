@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kunjungans', function (Blueprint $table) {
+        Schema::create('kunjungan', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+        $table->unsignedBigInteger('id_anggota');
+        $table->dateTime('tanggal_kunjungan');
+        $table->timestamps();
+
+        $table->foreign('id_anggota')->references('id')->on('anggota')->onDelete('cascade');
         });
     }
 
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kunjungans');
+        Schema::dropIfExists('kunjungan');
     }
 };

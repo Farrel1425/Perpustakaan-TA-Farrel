@@ -11,9 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pengembalians', function (Blueprint $table) {
+        Schema::create('pengembalian', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+        $table->unsignedBigInteger('id_peminjaman');
+        $table->dateTime('tanggal_kembali');
+        $table->decimal('denda', 10, 2)->default(0); // Menyimpan denda dalam format angka
+        $table->timestamps();
+
+        $table->foreign('id_peminjaman')->references('id')->on('peminjaman')->onDelete('cascade');
         });
     }
 
@@ -22,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pengembalians');
+        Schema::dropIfExists('pengembalian');
     }
 };

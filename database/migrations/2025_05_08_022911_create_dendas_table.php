@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('dendas', function (Blueprint $table) {
+        Schema::create('denda', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_pengembalian');
+            $table->decimal('jumlah_denda', 10, 2);  // Jumlah denda dalam format angka
             $table->timestamps();
+    
+            $table->foreign('id_pengembalian')->references('id')->on('pengembalian')->onDelete('cascade');
         });
     }
 
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('dendas');
+        Schema::dropIfExists('denda');
     }
 };
