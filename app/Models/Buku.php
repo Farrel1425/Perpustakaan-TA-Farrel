@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Buku extends Model
+{
+    use HasFactory;
+
+    protected $table = 'bukus';
+
+    protected $fillable = [
+        'judul',
+        'pengarang',
+        'penerbit',
+        'tahun_terbit',
+        'jumlah',
+        'id_kategori',
+    ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'id_kategori');
+    }
+
+    public function detailPeminjaman()
+    {
+        return $this->hasMany(DetailPeminjaman::class, 'id_buku');
+    }         
+}
